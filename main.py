@@ -1,8 +1,8 @@
-import pipelines.agency_reports.extract_agency_reports as ebr
-import utils.file_selector as file_selector
-import pipelines.agency_reports.transform_agency_reports as tbr
-import pipelines.agency_reports.agency_reports_db_functions as db_ag
-import pipelines.organizations.read_organization_info as read_org_info
+from pipelines.agency_reports.pipeline_agency_report import AgencyReportPipeline
+from pipelines.organizations.pipeline_organization_info import OrganizationInfoPipeline
+
+OrganizationInfoPipeline()
+# AgencyReportPipeline()
 
 # db_ag.reset_schema()
 

@@ -11,6 +11,10 @@ class AccountDict(TypedDict):
 
 class AgencyReportDict(TypedDict):
     file_name: str 
-    # date: pd.Timestamp
+    date: str
+    dataframe: pd.DataFrame
+
+class OrganizationInfoDict(TypedDict):
+    file_name: str 
     date: str
     dataframe: pd.DataFrame

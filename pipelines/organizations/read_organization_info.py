@@ -7,7 +7,7 @@ class ExcelOrganizationInfoReader(BaseReader):
         super().__init__()
 
     def read_file(self, file_path: str):
-        df = pd.read_csv(file_path)
+        df = pd.read_excel(file_path)
         return df
 
 

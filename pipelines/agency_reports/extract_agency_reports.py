@@ -1,10 +1,6 @@
-import pandas as pd
-import re
 import os
-import datetime
-from typing import TypedDict
 
-from utils.exceptions import FileNameException
+from utils.helper_functions import get_file_type
 
 from bases.base_reader import BaseReader
 from bases.base_extractor import BaseExtractor
@@ -12,15 +8,10 @@ from bases.typed_dicts import AgencyReportDict
 
 from pipelines.agency_reports.read_pdf_agency_reports import PdfAgencyReader
 from pipelines.agency_reports.read_excel_agency_reports import ExcelAgencyReader
-from pipelines.agency_reports.transform_agency_reports import format_pdf_content
-
-def get_file_type(file_path: str) -> str:
-    return file_path.split(".")[-1]
 
 class AgencyReportExtractor(BaseExtractor):
     def __init__(self):
         super().__init__()
-        self.date_match_str = r"\d\d.{1}\d\d.{1}\d{2,4}"
 
     @property
     def FILE_MAP(self):
@@ -61,22 +52,5 @@ class AgencyReportExtractor(BaseExtractor):
         }
         return agency_report
 
-    def read_date(self, file_name: str) -> datetime.date:
-        """Finds date in file name. All file names must contain a date in the form 'YY-MM-DD'.
 
-        Args:
-            file_name (str): File name of file (without path).
-
-        Raises:
-            FileNameException: Custom raise for when date cannot be found in the name. 
-
-        Returns:
-            datetime.date: Date time object of file report. 
-        """
-        date = re.search(self.date_match_str, file_name)
-        if date is None:
-            error_message = f"File Name \"{file_name}\" does not contain a valid date (YY-MM-DD). Each report must contain the date of the balance updates."
-            raise FileNameException(error_message)
-        
-        return date[0]
 
